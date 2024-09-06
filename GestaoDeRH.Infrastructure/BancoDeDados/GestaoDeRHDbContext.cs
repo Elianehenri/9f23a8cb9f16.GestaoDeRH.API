@@ -1,4 +1,5 @@
 ﻿using GestaoDeRH.Dominio.ControlePonto;
+using GestaoDeRH.Dominio.Ferias;
 using GestaoDeRH.Dominio.FolhaDePagamento;
 using GestaoDeRH.Dominio.Notificacao;
 using GestaoDeRH.Dominio.Pessoas;
@@ -17,7 +18,7 @@ namespace GestaoDeRH.Infra.BancoDeDados
         public DbSet<Candidato> Candidatos { get; set; }
         public DbSet<Vaga> Vagas  { get; set; }
         public DbSet<Notificacao> Notificacoes { get; set; }
-
+        public DbSet<SolicitarFerias> Ferias { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ColaboradorConfiguration).Assembly);
