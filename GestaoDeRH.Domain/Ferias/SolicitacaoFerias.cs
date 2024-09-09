@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GestaoDeRH.Dominio.Ferias
 {
-    public class SolicitarFerias : Entidade
+    public class SolicitacaoFerias : Entidade
     {
         public int ColaboradorId { get; set; }
         public virtual Colaborador? Colaborador { get; set; }
@@ -18,7 +18,7 @@ namespace GestaoDeRH.Dominio.Ferias
 
         public DateTime DataSolicitacao { get; set; }
 
-        public SolicitarFerias()
+        public SolicitacaoFerias()
         {
             DataSolicitacao = DateTime.Now;
 

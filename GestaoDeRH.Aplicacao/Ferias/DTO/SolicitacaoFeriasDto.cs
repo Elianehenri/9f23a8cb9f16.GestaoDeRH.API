@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GestaoDeRH.Aplicacao.Ferias.DTO
 {
-    public  class SolicitarFeriasDto
+    public  class SolicitacaoFeriasDto
     {
         public int Id { get; set; }
         public int ColaboradorId { get; set; }

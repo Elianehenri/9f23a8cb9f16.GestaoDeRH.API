@@ -12,6 +12,7 @@ namespace GestaoDeRH.API.Config
         {
             builder.AddScoped(typeof(IRepositorio<>), typeof(RepositorioGenerico<>));
             builder.AddScoped<IPontoRepositorio, PontosRepositorio>();
+            builder.AddScoped<ISolicitacaoFeriasRepositorio, SolicitacaoFeriasRepositorio>();
         }
     }
 }

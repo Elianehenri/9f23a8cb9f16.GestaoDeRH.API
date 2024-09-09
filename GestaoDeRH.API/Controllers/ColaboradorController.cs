@@ -1,4 +1,6 @@
-﻿using GestaoDeRH.Dominio.Interfaces;
+﻿using GestaoDeRH.Aplicacao.Colaboradores.DTO;
+using GestaoDeRH.Aplicacao.Colaboradores.Interfaces;
+using GestaoDeRH.Dominio.Interfaces;
 using GestaoDeRH.Dominio.Pessoas;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,35 +8,47 @@ namespace GestaoDeRH.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ColaboradorController(IRepositorio<Colaborador> repositorioColaborador) : ControllerBase
+   
+    public class ColaboradorController : ControllerBase
     {
+        private readonly IColaboradorServico _colaboradorServico;
+
+        public ColaboradorController(IColaboradorServico colaboradorService)
+        {
+            _colaboradorServico = colaboradorService;
+        }
+
         [HttpGet("")]
-        public async Task<List<Colaborador>> ListarColaboradores() => await repositorioColaborador.Listar();
+        public async Task<List<ColaboradorDTO>> ListarColaboradores()
+        {
+            return await _colaboradorServico.ListarColaboradores();
+        }
 
         [HttpPost("")]
-        public async Task<IActionResult> CriarColaborador(Colaborador novoColaborador)
+        public async Task<IActionResult> CriarColaborador(ColaboradorDTO novoColaboradorDto)
         {
-            if (novoColaborador.Id > 0)
-                return BadRequest("Novo colaborador não pode conter um ID.");
-
-            await repositorioColaborador.Salvar(novoColaborador);
-            return Ok(novoColaborador);
+            try
+            {
+                var colaborador = await _colaboradorServico.CriarColaborador(novoColaboradorDto);
+                return Ok(colaborador);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("")]
-        public async Task<IActionResult> AtualizarOuCriarColaborador(Colaborador novoColaborador)
+        public async Task<IActionResult> AtualizarOuCriarColaborador(ColaboradorDTO novoColaboradorDto)
         {
-            await repositorioColaborador.Salvar(novoColaborador);
-            return Ok(novoColaborador);
+            var colaborador = await _colaboradorServico.AtualizarOuCriarColaborador(novoColaboradorDto);
+            return Ok(colaborador);
         }
 
         [HttpDelete("")]
-        public async Task<IActionResult> DeletarColaborador(Colaborador novoColaborador)
+        public async Task<IActionResult> DeletarColaborador(int id)
         {
-            if (novoColaborador.Id <= 0)
-                return BadRequest("Não pode deletar um colaborador sem ID.");
-
-            await repositorioColaborador.Deletar(novoColaborador.Id);
+            await _colaboradorServico.DeletarColaborador(id);
             return NoContent();
         }
     }

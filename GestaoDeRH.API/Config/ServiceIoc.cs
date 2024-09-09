@@ -1,4 +1,6 @@
-﻿using GestaoDeRH.Aplicacao.ControlePonto;
+﻿using GestaoDeRH.Aplicacao.Colaboradores;
+using GestaoDeRH.Aplicacao.Colaboradores.Interfaces;
+using GestaoDeRH.Aplicacao.ControlePonto;
 using GestaoDeRH.Aplicacao.ControlePonto.Interfaces;
 using GestaoDeRH.Aplicacao.Ferias;
 using GestaoDeRH.Aplicacao.Ferias.Interfaces;
@@ -27,7 +29,8 @@ namespace GestaoDeRH.API.Config
             builder.AddScoped<ICriarVaga, CriarVaga>();
             builder.AddScoped<INovoCandidato, NovoCandidato>();
             builder.AddScoped<IAprovarCandidato, AprovarCandidato>();
-            builder.AddScoped<ISolicitarFerias, SolicitarFeriasServico>();
+            builder.AddScoped<ISolicitacaoFerias, SolicitacaoFeriasServico>();
+            builder.AddScoped<IColaboradorServico, ColaboradorServico>();
 
         }
     }

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace GestaoDeRH.Infra.BancoDeDados.Configuracoes
 {
-    public  class SolicitarFeriasConfiguration : IEntityTypeConfiguration<SolicitarFerias>
+    public  class SolicitacaoFeriasConfiguration : IEntityTypeConfiguration<SolicitacaoFerias>
     {
-        public void Configure(EntityTypeBuilder<SolicitarFerias> builder)
+        public void Configure(EntityTypeBuilder<SolicitacaoFerias> builder)
         {
 
             builder.HasKey(x => x.Id);

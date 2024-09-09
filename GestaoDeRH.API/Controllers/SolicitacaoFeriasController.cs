@@ -7,25 +7,25 @@ namespace GestaoDeRH.API.Controllers
 
     [ApiController]
     [Route("[controller]")]
-    public class SolicitarFeriasController : ControllerBase
+    public class SolicitacaoFeriasController : ControllerBase
     {
-        private readonly ISolicitarFerias _solicitarFeriasService;
+        private readonly ISolicitacaoFerias _solicitarFeriasService;
 
-        public SolicitarFeriasController(ISolicitarFerias solicitarFeriasService)
+        public SolicitacaoFeriasController(ISolicitacaoFerias solicitarFeriasService)
         {
             _solicitarFeriasService = solicitarFeriasService;
         }
 
 
         [HttpGet("")]
-        public async Task<ActionResult<List<SolicitarFeriasDto>>> ListarSolicitacoesFerias()
+        public async Task<ActionResult<List<SolicitacaoFeriasDto>>> ListarSolicitacoesFerias()
         {
             var solicitacoes = await _solicitarFeriasService.Listar();
             return Ok(solicitacoes);
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> CriarSolicitacaoFerias([FromBody] SolicitarFeriasDto novaSolicitacaoDto)
+        public async Task<IActionResult> CriarSolicitacaoFerias([FromBody] SolicitacaoFeriasDto novaSolicitacaoDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -41,7 +41,7 @@ namespace GestaoDeRH.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> AtualizarSolicitacaoFerias(int id, [FromBody] SolicitarFeriasDto solicitacaoDto)
+        public async Task<IActionResult> AtualizarSolicitacaoFerias(int id, [FromBody] SolicitacaoFeriasDto solicitacaoDto)
         {
             if (id <= 0)
                 return BadRequest("ID inválido.");

@@ -12,23 +12,23 @@ using System.Threading.Tasks;
 
 namespace GestaoDeRH.Aplicacao.Ferias
 {
-    public  class SolicitarFeriasServico : ISolicitarFerias
+    public  class SolicitacaoFeriasServico : ISolicitacaoFerias
     {
-        private readonly IRepositorio<SolicitarFerias> _repositorioSolicitarFerias;
+        private readonly IRepositorio<SolicitacaoFerias> _repositorioSolicitarFerias;
         private readonly IRepositorio<Colaborador> _repositorioColaboradores;
 
 
-        public SolicitarFeriasServico(
-            IRepositorio<SolicitarFerias> repositorioFerias,
+        public SolicitacaoFeriasServico(
+            IRepositorio<SolicitacaoFerias> repositorioFerias,
             IRepositorio<Colaborador> repositorioColaboradores)
         {
             _repositorioSolicitarFerias = repositorioFerias;
             _repositorioColaboradores = repositorioColaboradores;
         }
 
-        public async Task<ResultadoOperacao<SolicitarFeriasDto>> SolicitarFerias(SolicitarFeriasDto dto)
+        public async Task<ResultadoOperacao<SolicitacaoFeriasDto>> SolicitarFerias(SolicitacaoFeriasDto dto)
         {
-            var resultado = new ResultadoOperacao<SolicitarFeriasDto>();
+            var resultado = new ResultadoOperacao<SolicitacaoFeriasDto>();
 
             var colaborador = await _repositorioColaboradores.Obter(dto.ColaboradorId);
             if (colaborador == null)
@@ -46,7 +46,7 @@ namespace GestaoDeRH.Aplicacao.Ferias
                 return resultado;
             }
 
-            var solicitacao = new SolicitarFerias
+            var solicitacao = new SolicitacaoFerias
             {
                 ColaboradorId = dto.ColaboradorId,
                 DataInicioFerias = dto.DataInicioFerias,
@@ -76,7 +76,7 @@ namespace GestaoDeRH.Aplicacao.Ferias
 
             await _repositorioSolicitarFerias.Salvar(solicitacao);
 
-            resultado.Dados = new SolicitarFeriasDto
+            resultado.Dados = new SolicitacaoFeriasDto
             {
                 ColaboradorId = solicitacao.ColaboradorId,
                 DataInicioFerias = solicitacao.DataInicioFerias,
@@ -84,12 +84,12 @@ namespace GestaoDeRH.Aplicacao.Ferias
             };
             return resultado;
         }
-        public async Task<SolicitarFeriasDto> Obter(int id)
+        public async Task<SolicitacaoFeriasDto> Obter(int id)
         {
             var solicitacao = await _repositorioSolicitarFerias.Obter(id);
             if (solicitacao == null) return null;
 
-            return new SolicitarFeriasDto
+            return new SolicitacaoFeriasDto
             {
                 ColaboradorId = solicitacao.ColaboradorId,
                 DataInicioFerias = solicitacao.DataInicioFerias,
@@ -97,9 +97,9 @@ namespace GestaoDeRH.Aplicacao.Ferias
             };
         }
 
-        public async Task<ResultadoOperacao<SolicitarFeriasDto>> Atualizar(SolicitarFeriasDto dto)
+        public async Task<ResultadoOperacao<SolicitacaoFeriasDto>> Atualizar(SolicitacaoFeriasDto dto)
         {
-            var resultado = new ResultadoOperacao<SolicitarFeriasDto>();
+            var resultado = new ResultadoOperacao<SolicitacaoFeriasDto>();
 
             var solicitacaoExistente = await _repositorioSolicitarFerias.Obter(dto.ColaboradorId);
             if (solicitacaoExistente == null)
@@ -124,9 +124,9 @@ namespace GestaoDeRH.Aplicacao.Ferias
             return resultado;
         }
 
-        public async Task<ResultadoOperacao<SolicitarFeriasDto>> Deletar(int id)
+        public async Task<ResultadoOperacao<SolicitacaoFeriasDto>> Deletar(int id)
         {
-            var resultado = new ResultadoOperacao<SolicitarFeriasDto>();
+            var resultado = new ResultadoOperacao<SolicitacaoFeriasDto>();
 
             try
             {
@@ -148,10 +148,10 @@ namespace GestaoDeRH.Aplicacao.Ferias
             return resultado; // Se Erros.Count == 0, Sucesso será true
         }
 
-        public async Task<List<SolicitarFeriasDto>> Listar()
+        public async Task<List<SolicitacaoFeriasDto>> Listar()
         {
             var solicitacoes = await _repositorioSolicitarFerias.Listar();
-            return solicitacoes.Select(s => new SolicitarFeriasDto
+            return solicitacoes.Select(s => new SolicitacaoFeriasDto
             {
                 Id = s.Id,
                 ColaboradorId = s.ColaboradorId,
